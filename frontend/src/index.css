@@ -1,3 +1,14 @@
+/* App.js */
 main {
   min-height: 80vh;
+}
+
+/* Product.js */
+h3 {
+  padding: 1rem 0;
+}
+
+/* Rating.js */
+.rating span {
+  margin: 0.1rem;
 }
