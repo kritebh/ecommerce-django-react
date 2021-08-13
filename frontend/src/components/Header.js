@@ -1,7 +1,7 @@
 import React from "react";
 
 /* REACT BOOTSTRAP */
-import { Navbar, Nav, Container, Row } from "react-bootstrap";
+import { Navbar, Nav, Container } from "react-bootstrap";
 
 /* REACT ROUTER BOOTSTRAP */
 import { LinkContainer } from "react-router-bootstrap";
