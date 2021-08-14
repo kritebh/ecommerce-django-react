@@ -5,8 +5,11 @@ import thunk from "redux-thunk";
 
 import { composeWithDevTools } from "redux-devtools-extension";
 
+/* IMPORTING REDUCERS */
+import { productListReducer } from "./reducers/productReducers";
+
 /* REDUCER */
-const reducer = combineReducers({});
+const reducer = combineReducers({ productList: productListReducer });
 
 const initialState = {};
 
