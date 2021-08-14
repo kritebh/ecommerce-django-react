@@ -17,7 +17,7 @@ import { listProducts } from "../actions/productActions";
 function HomeScreen() {
   const dispatch = useDispatch();
 
-  /* PULLING A PART OF STATE FROM THE ACTUAL STATE */
+  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
   const productList = useSelector((state) => state.productList);
 
   const { products, loading, error } = productList;
