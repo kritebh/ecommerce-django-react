@@ -1,44 +1,52 @@
-import React,{useState,useEffect} from "react";
+import React, { useEffect } from "react";
 
 /* REACT-BOOTSTRAP */
 import { Row, Col } from "react-bootstrap";
 
-/* AXIOS */
-import axios from 'axios'
-
 /* COMPONENTS */
 import Product from "../components/Product";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+
+/* REACT - REDUX */
+import { useDispatch, useSelector } from "react-redux";
+
+/* ACTION CREATORS */
+import { listProducts } from "../actions/productActions";
 
 function HomeScreen() {
-  // State
-  const[products,setProducts] = useState([])
+  const dispatch = useDispatch();
 
-  //UseEffect
+  /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+  const productList = useSelector((state) => state.productList);
 
-  useEffect(()=>{
+  const { products, loading, error } = productList;
 
-    async function fetchProducts(){
-      const {data} = await axios.get('/api/products/')
-      setProducts(data)
-    }
+  /* FIRING OFF THE ACTION CREATORS USING DISPATCH */
 
-    fetchProducts()
-
-  },[])
-
+  useEffect(() => {
+    dispatch(listProducts());
+  }, [dispatch]);
 
   return (
     <div>
       <h1>Latest Products</h1>
-      <Row>
-        {products.map((product) => {
-          return (
-            <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-              <Product product={product} />
-            </Col>
-          );
-        })}
-      </Row>
+
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <Row>
+          {products.map((product) => {
+            return (
+              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                <Product product={product} />
+              </Col>
+            );
+          })}
+        </Row>
+      )}
     </div>
   );
 }
