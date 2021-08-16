@@ -2,7 +2,7 @@
 import axios from "axios";
 
 /* ACTION TYPES */
-import { CART_ADD_ITEM } from "../constants/cartConstants";
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
 
 /* ACTION CREATOR USED IN CartScreen COMPONENT */
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -19,6 +19,16 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
       countInStock: data.countInStock,
       qty,
     },
+  });
+
+  // SETTING VALUE OF CART ITEMS IN LOCAL STORAGE
+  localStorage.setItem("cartItems", JSON.stringify(getState().cart.cartItems));
+};
+
+export const removeFromCart = (id) => (dispatch, getState) => {
+  dispatch({
+    type: CART_REMOVE_ITEM,
+    payload: id,
   });
 
   // SETTING VALUE OF CART ITEMS IN LOCAL STORAGE
