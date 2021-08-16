@@ -4,7 +4,15 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 /* REACT BOOTSTRAP */
-import { Row, Col, Image, ListGroup, Button, Form } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Button,
+  Card,
+  Form,
+} from "react-bootstrap";
 
 /* COMPONENTS */
 import Message from "../components/Message";
@@ -37,6 +45,10 @@ function CartScreen({ match, location, history }) {
 
   const removeFromCartHandler = (id) => {};
 
+  const checkoutHandler = () => {
+    history.push("/login?redirect=shipping");
+  };
+
   return (
     <Row>
       <Col md={8}>
@@ -65,7 +77,9 @@ function CartScreen({ match, location, history }) {
                       as="select"
                       value={item.qty}
                       onChange={(e) =>
-                        dispatch(addToCart(item.product, e.target.value))
+                        dispatch(
+                          addToCart(item.product, Number(e.target.value))
+                        )
                       }
                     >
                       {[...Array(item.countInStock).keys()].map((x) => (
@@ -92,7 +106,33 @@ function CartScreen({ match, location, history }) {
         )}
       </Col>
 
-      <Col md={4}></Col>
+      <Col md={4}>
+        <Card>
+          <ListGroup variant="flush">
+            <ListGroup.Item>
+              <h2>
+                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                items
+              </h2>
+              $
+              {cartItems
+                .reduce((acc, item) => acc + item.qty * item.price, 0)
+                .toFixed(2)}
+            </ListGroup.Item>
+          </ListGroup>
+
+          <ListGroup.Item>
+            <Button
+              type="button"
+              className="w-100"
+              disabled={cartItems.length === 0}
+              onClick={checkoutHandler}
+            >
+              Proceed To Checkout
+            </Button>
+          </ListGroup.Item>
+        </Card>
+      </Col>
     </Row>
   );
 }
