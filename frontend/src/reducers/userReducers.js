@@ -27,7 +27,7 @@ export const userLoginReducer = (state = {}, action) => {
       };
 
     case USER_LOGOUT:
-      return {};
+      return {}; /* CLEARS STATE */
 
     default:
       return state;

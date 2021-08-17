@@ -28,7 +28,7 @@ function LoginScreen({ location, history }) {
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
   /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
-  const userLogin = useSelector((state) => state.productuserLogin);
+  const userLogin = useSelector((state) => state.userLogin);
 
   const { userInfo, loading, error } = userLogin;
 
@@ -44,7 +44,7 @@ function LoginScreen({ location, history }) {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    /* FIRING OFF THE ACTION CREATORS USING DISPATCH */
+    /* FIRING OFF THE ACTION CREATORS USING DISPATCH FOR LOGIN */
     dispatch(login(email, password));
   };
 

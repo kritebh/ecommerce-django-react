@@ -9,7 +9,7 @@ import {
   USER_LOGOUT,
 } from "../constants/userConstants";
 
-/* ACTION CREATOR USED IN USER LOGIN IN LoginScreen COMPONENT */
+/* ACTION CREATOR USED IN USER LOGIN IN LoginScreen COMPONENT & HEADER */
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({
@@ -46,4 +46,15 @@ export const login = (email, password) => async (dispatch) => {
           : error.message,
     });
   }
+};
+
+/* ACTION CREATOR USED IN USER LOGOUT IN LoginScreen COMPONENT & HEADER */
+export const logout = () => (dispatch) => {
+  /* REMOVE USER INFO FORM LOCAL STORAGE */
+  localStorage.removeItem("userInfo");
+
+  /* DISPATCH TO REMOVE USER INFO FORM STORE */
+  dispatch({
+    type: USER_LOGOUT,
+  });
 };
