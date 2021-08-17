@@ -6,7 +6,7 @@ import {
   USER_LOGOUT,
 } from "../constants/userConstants";
 
-/* REDUCER USED IN USER LOGIN */
+/* REDUCER USED IN USER LOGIN IN LoginScreen COMPONENT */
 export const userLoginReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:

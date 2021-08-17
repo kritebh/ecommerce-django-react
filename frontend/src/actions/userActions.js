@@ -9,7 +9,7 @@ import {
   USER_LOGOUT,
 } from "../constants/userConstants";
 
-/* ACTION CREATOR USED IN USER LOGIN */
+/* ACTION CREATOR USED IN USER LOGIN IN LoginScreen COMPONENT */
 export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({
