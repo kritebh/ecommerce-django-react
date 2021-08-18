@@ -7,6 +7,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
 } from "../constants/userConstants";
 
 /* REDUCER USED IN USER LOGIN IN LoginScreen COMPONENT */
@@ -37,7 +40,7 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
-/* REDUCER USED IN USER REGISTER IN RegistrationScreen COMPONENT */
+/* REDUCER USED IN USER REGISTRATION IN RegisterScreen COMPONENT */
 export const userRegisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_REGISTER_REQUEST:
@@ -59,6 +62,32 @@ export const userRegisterReducer = (state = {}, action) => {
 
     case USER_LOGOUT:
       return {}; /* CLEARS STATE */
+
+    default:
+      return state;
+  }
+};
+
+/* REDUCER USED IN GETTING USER DETAILS IN ProfileScreen COMPONENT */
+export const userDetailsReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case USER_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case USER_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        user: action.payload,
+      };
+
+    case USER_DETAILS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
 
     default:
       return state;

@@ -10,6 +10,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_SUCCESS,
+  USER_DETAILS_FAIL,
 } from "../constants/userConstants";
 
 /* ACTION CREATOR USED IN USER LOGIN IN LoginScreen COMPONENT & HEADER */
@@ -99,6 +102,51 @@ export const register = (name, email, password) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+/* ACTION CREATOR USED IN GETTING USER DETAILS IN ProfileScreen COMPONENT  */
+export const getUserDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_DETAILS_REQUEST,
+    });
+
+    // PULLING OUT THE CURRENT USER WE ARE LOGGIN IN AS
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    /* MAKE GET REQUEST TO GET BACK THE USER DATA */
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}` /* PASSING IN USER TOKEN AND IF THE USER IN AUTHORISED HE'LL HAVE FULL ACCESS TO HIS PROFILE INFORMATION */,
+      },
+    };
+
+    // USING ${id} BECAUSE WHILE ACCESSING NORMAL USER WE'LL PASS STRING 'profile' BUT WHILE ACCESSING ADMIN PANEL WE'LL PASS THE 'id' SO LINK HAS TO BE DYNAMIC
+    const { data } = await axios.get(`/api/users/${id}/`, config);
+
+    /* IF GET REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    });
+
+    /* AFTER REGISTRATION WE WANT TO IMMEDIATELY LOGIN THE USER */
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_DETAILS_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
