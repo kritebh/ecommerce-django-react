@@ -145,12 +145,6 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       type: USER_DETAILS_SUCCESS,
       payload: data,
     });
-
-    /* AFTER REGISTRATION WE WANT TO IMMEDIATELY LOGIN THE USER */
-    dispatch({
-      type: USER_DETAILS_SUCCESS,
-      payload: data,
-    });
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAIL,
@@ -201,7 +195,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
-      type: USER_LOGIN_FAIL,
+      type: USER_UPDATE_PROFILE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail
