@@ -11,7 +11,10 @@ import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 
 /* ACTION CREATORS */
-import { getUserDetails } from "../actions/userActions";
+import { getUserDetails, updateUserProfile } from "../actions/userActions";
+
+/* ACTION TYPES */
+import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 function ProfileScreen({ history }) {
   /* STATE */
@@ -33,14 +36,23 @@ function ProfileScreen({ history }) {
 
   const { userInfo } = userLogin;
 
-  /* REDIRECTING AN ALREADY LOGGED IN USER, AS WE DON'T WANT THEM TO SEE THE LOGIN PAGE */
+  /* PULLING OUT SUCCESS userUpdateProfile, IF SUCCESS IS TRUE WE WILL RESET STATE */
+  const userUpdateProfle = useSelector((state) => state.userUpdateProfle);
+
+  const { success } = userUpdateProfle;
+
+  /* SENDING USER TO LOGIN PAGE IF NOT LOGGED IN & SHOW PROFILE DATA IF LOGGED IN */
   useEffect(() => {
     // USER IS NOT LOGGED IN
     if (!userInfo) {
       history.push("/login");
     } else {
       // WE DON'T HAVE THE USER INFO SO WE DISPATCH AN ACTION TO GET THE DATA
-      if (!user || !user.name) {
+      if (!user || !user.name || success) {
+        // RESETTING PROFILE BEFORE FETCHING DATA SO THAT WE ALWAYS HAVE UPDATED DATA
+        dispatch({ type: USER_UPDATE_PROFILE_RESET });
+
+        // FETCHING USER DATA
         dispatch(getUserDetails("profile"));
       } else {
         // WE HAVE THE USER INFO SO WE SET OUR STATE
@@ -48,7 +60,7 @@ function ProfileScreen({ history }) {
         setEmail(user.email);
       }
     }
-  }, [dispatch, history, userInfo, user]);
+  }, [dispatch, history, userInfo, user, success]);
 
   /* HANDLERS */
 
@@ -59,6 +71,15 @@ function ProfileScreen({ history }) {
     if (password !== confirmPassword) {
       setMessage("Passwords do not match");
     } else {
+      dispatch(
+        updateUserProfile({
+          id: user._id,
+          name: name,
+          email: email,
+          password: password,
+        })
+      );
+      setMessage("");
     }
   };
 
