@@ -10,6 +10,9 @@ import CartScreen from "./screens/CartScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import ShippingScreen from "./screens/ShippingScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 
 /* REACT ROUTER */
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -27,6 +30,12 @@ function App() {
           <Route path="/register" component={RegisterScreen} />
 
           <Route path="/profile" component={ProfileScreen} />
+
+          <Route path="/shipping" component={ShippingScreen} />
+
+          <Route path="/payment" component={PaymentScreen} />
+
+          <Route path="/placeorder" component={PlaceOrderScreen} />
 
           <Route path="/product/:id" component={ProductScreen} />
 

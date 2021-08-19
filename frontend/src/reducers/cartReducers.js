@@ -1,10 +1,23 @@
 /* ACTION TYPES */
-import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
+import {
+  CART_ADD_ITEM,
+  CART_REMOVE_ITEM,
+  CART_SAVE_SHIPPING_ADDRESS,
+  CART_SAVE_PAYMENT_METHOD,
+} from "../constants/cartConstants";
 
-/* REDUCER USED IN CartScreen COMPONENT */
-export const cartReducer = (state = { cartItems: [] }, action) => {
+/* REDUCER USED IN CartScreen & ShippingScreen COMPONENT */
+export const cartReducer = (
+  state = {
+    cartItems: [],
+    shippingAddress: {},
+  },
+  action
+) => {
   switch (action.type) {
     // IF ITEM DOESN'T EXIST IN CART WE ADD IT, IF IT ALREADY EXISTS THEN WE UPDATE IT'S QUANTITY
+
+    /* CartScreen COMPONENT */
 
     case CART_ADD_ITEM: {
       const item = action.payload;
@@ -31,6 +44,22 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         cartItems: state.cartItems.filter((x) => x.product !== action.payload),
       };
     }
+
+    /* ShippingScreen COMPONENT */
+
+    case CART_SAVE_SHIPPING_ADDRESS:
+      return {
+        ...state,
+        shippingAddress: action.payload,
+      };
+
+    /* PaymentScreen COMPONENT */
+
+    case CART_SAVE_PAYMENT_METHOD:
+      return {
+        ...state,
+        paymentMethod: action.payload,
+      };
 
     default:
       return state;
