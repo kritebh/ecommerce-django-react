@@ -20,6 +20,8 @@ import {
   userUpdateProfileReducer,
 } from "./reducers/userReducers";
 
+import { orderCreateReducer } from "./reducers/orderReducers";
+
 /* COMBINED REDUCER */
 const reducer = combineReducers({
   productList: productListReducer,
@@ -29,6 +31,7 @@ const reducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   userUpdateProfle: userUpdateProfileReducer,
+  orderCreate: orderCreateReducer,
 });
 
 /* PULLING DATA OUT OF LOCAL STORAGE AND LOAD IT INTO INITIAL STATE */
