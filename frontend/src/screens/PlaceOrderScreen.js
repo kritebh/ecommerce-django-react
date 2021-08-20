@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 /* REACT ROUTER */
 import { Link } from "react-router-dom";
@@ -11,12 +11,22 @@ import CheckoutSteps from "../components/CheckoutSteps";
 import Message from "../components/Message";
 
 /* REACT - REDUX */
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 /* ACTION CREATORS */
+import { createOrder } from "../actions/orderActions";
 
-function PlaceOrderScreen() {
+/* ACTION TYPES */
+import { ORDER_CREATE_RESET } from "../constants/orderConstants";
+
+function PlaceOrderScreen({ history }) {
+  const dispatch = useDispatch();
+
   /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
+  const orderCrate = useSelector((state) => state.orderCreate);
+
+  const { order, error, success } = orderCrate;
+
   const cart = useSelector((state) => state.cart);
 
   // PRICE CALCULATIONS, WE ARE SETTING AN ATTRIBUTE TO OUR CART OBJECT BUT IT WON'T UPDATE OUR STATE, IT'S JUST FOR THIS PAGE
@@ -34,8 +44,38 @@ function PlaceOrderScreen() {
     Number(cart.taxPrice)
   ).toFixed(2);
 
+  // REDIRECT
+  if (!cart.paymentMethod) {
+    history.push("/payment");
+  }
+
+  /* IF ORDER SUCCESSFULL AND WE HAVE ORDER ID, SEND USER TO USERS ACCOUNT TO VIEW THE ORDER */
+  useEffect(() => {
+    if (success) {
+      history.push(`/order/${order._id}`);
+
+      // RESET STATE
+      dispatch({
+        type: ORDER_CREATE_RESET,
+      });
+    }
+    //eslint-disable-next-line
+  }, [success, history]);
+
   // HANDLERS
-  const placeorder = () => {};
+  const placeorder = () => {
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
+  };
 
   return (
     <div>
@@ -139,6 +179,10 @@ function PlaceOrderScreen() {
 
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
 
               <ListGroup.Item>

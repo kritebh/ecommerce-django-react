@@ -68,6 +68,6 @@ def addOrderItems(request):
             product.save()
 
         
-    serializer = OrderSerializer(order,many=True)
-    return Response(serializer.data)
+        serializer = OrderSerializer(order,many=False)
+        return Response(serializer.data)
 
