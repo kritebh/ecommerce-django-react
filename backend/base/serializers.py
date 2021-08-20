@@ -75,9 +75,9 @@ class OrderSerializer(serializers.ModelSerializer):
             address = False
         return address
 
-    def get_user(self,obj):
+    def get_User(self,obj):
         items = obj.user
-        serializer = UserSerializer(items,many=True)
+        serializer = UserSerializer(items,many=False)
         return serializer.data
 
 

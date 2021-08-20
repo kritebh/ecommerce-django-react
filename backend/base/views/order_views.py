@@ -24,6 +24,7 @@ from base.serializers import ProductSerializer,OrderSerializer
 def addOrderItems(request):
     user = request.user
     data = request.data
+    print(data)
     orderItems = data['orderItems']
 
     if orderItems and len(orderItems)==0:
