@@ -47,7 +47,6 @@ export const orderDetailsReducer = (
     case ORDER_DETAILS_REQUEST:
       return {
         ...state,
-
         loading: true,
       };
 
