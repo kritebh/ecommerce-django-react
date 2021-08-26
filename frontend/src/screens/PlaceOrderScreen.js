@@ -59,7 +59,7 @@ function PlaceOrderScreen({ history }) {
         type: ORDER_CREATE_RESET,
       });
     }
-    //eslint-disable-next-line
+    // eslint-disable-next-line
   }, [success, history]);
 
   // HANDLERS
