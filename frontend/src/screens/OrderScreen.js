@@ -38,8 +38,7 @@ function OrderScreen({ match }) {
     if (!order || order._id !== Number(orderId)) {
       dispatch(getOrderDetails(orderId));
     }
-    //eslint-disable-next-line
-  }, [order, orderId]);
+  }, [dispatch, order, orderId]);
 
   return loading ? (
     <Loader />
@@ -55,12 +54,12 @@ function OrderScreen({ match }) {
               <h2>Shipping</h2>
 
               <p>
-                <strong>Name: {order.user.name}</strong>
+                <strong>Name: {order.User.name}</strong>
               </p>
 
               <p>
-                <strong>Email: {order.user.name}</strong>
-                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+                <strong>Email: </strong>
+                <a href={`mailto:${order.User.email}`}>{order.User.email}</a>
               </p>
 
               <p>
