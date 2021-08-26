@@ -59,7 +59,8 @@ function PlaceOrderScreen({ history }) {
         type: ORDER_CREATE_RESET,
       });
     }
-  }, [success, history, dispatch, order._id]);
+    // eslint-disable-next-line
+  }, [success, history]);
 
   // HANDLERS
   const placeorder = () => {
