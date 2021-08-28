@@ -19,6 +19,8 @@ import {
   USER_UPDATE_PROFILE_FAIL,
 } from "../constants/userConstants";
 
+import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
+
 /* ACTION CREATOR USED IN USER LOGIN IN LoginScreen COMPONENT & HEADER */
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -69,6 +71,10 @@ export const logout = () => (dispatch) => {
   });
   dispatch({
     type: USER_DETAILS_RESET,
+  });
+  /* DISPATCH TO RESET THE DETAILS OF ORDERS MADE BY USER */
+  dispatch({
+    type: ORDER_LIST_MY_RESET,
   });
 };
 

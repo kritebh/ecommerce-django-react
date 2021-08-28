@@ -24,6 +24,7 @@ import {
   orderCreateReducer,
   orderDetailsReducer,
   orderPayReducer,
+  orderListMyReducer,
 } from "./reducers/orderReducers";
 
 /* COMBINED REDUCER */
@@ -38,6 +39,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  orderListMy: orderListMyReducer,
 });
 
 /* PULLING DATA OUT OF LOCAL STORAGE AND LOAD IT INTO INITIAL STATE */
