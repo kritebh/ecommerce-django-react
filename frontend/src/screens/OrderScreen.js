@@ -110,7 +110,10 @@ function OrderScreen({ match }) {
 
               {order.isDeliver ? (
                 <Message variant="success">
-                  Delivered on {order.deliveredAt}
+                  Delivered on{" "}
+                  {order.deliveredAt
+                    ? order.deliveredAt.substring(0, 10)
+                    : null}
                 </Message>
               ) : (
                 <Message variant="warning">Not Delivered</Message>
@@ -126,7 +129,9 @@ function OrderScreen({ match }) {
               </p>
 
               {order.isPaid ? (
-                <Message variant="success">Paid on {order.paidAt}</Message>
+                <Message variant="success">
+                  Paid on {order.paidAt ? order.paidAt.substring(0, 10) : null}
+                </Message>
               ) : (
                 <Message variant="warning">Not Paid</Message>
               )}
