@@ -43,7 +43,7 @@ class Order(models.Model):
     paidAt = models.DateTimeField(auto_now_add=False,null=True, blank=True)
     isDeliver = models.BooleanField(default=False)
     deliveredAt = models.DateTimeField(auto_now_add=False,null=True, blank=True)
-    createdAt = models.DateTimeField(auto_now_add=False,null=True, blank=True)
+    createdAt = models.DateTimeField(auto_now_add=True,null=True, blank=True)
     _id =  models.AutoField(primary_key=True,editable=False)
 
     def __str__(self):
