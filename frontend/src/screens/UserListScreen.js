@@ -34,7 +34,7 @@ function UserListScreen({ history }) {
     } else {
       history.push("/login");
     }
-  }, [dispatch, history]);
+  }, [dispatch, history, userInfo]);
 
   /* HANDLER */
   const deleteHandler = (id) => {
