@@ -8,4 +8,7 @@ urlpatterns = [
     path('profile/',views.getUserProfile,name="user_profile"),
     path('profile/update/',views.updateUserProfile,name="user_profile_update"),
     path('login/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('<str:pk>/',views.getUserById,name="get_user"),
+    path('update/<str:pk>/',views.updateUser,name="updateUser"),
+    path('delete/<str:pk>/',views.deleteUser,name="deleteUser"),
 ]
