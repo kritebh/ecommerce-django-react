@@ -17,6 +17,13 @@ import {
   USER_UPDATE_PROFILE_REQUEST,
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
+  USER_LIST_REQUEST,
+  USER_LIST_SUCCESS,
+  USER_LIST_FAIL,
+  USER_LIST_RESET,
+  USER_DELETE_REQUEST,
+  USER_DELETE_FAIL,
+  USER_DELETE_SUCCESS,
 } from "../constants/userConstants";
 
 import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
@@ -75,6 +82,10 @@ export const logout = () => (dispatch) => {
   /* DISPATCH TO RESET THE DETAILS OF ORDERS MADE BY USER */
   dispatch({
     type: ORDER_LIST_MY_RESET,
+  });
+  /* DISPATCH TO RESET THE DETAILS OF USERS LIST */
+  dispatch({
+    type: USER_LIST_RESET,
   });
 };
 
@@ -202,6 +213,80 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_UPDATE_PROFILE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+/* ACTION CREATOR USED TO GET THE LIST OF USERS IN UserList SCREEN  */
+export const listUsers = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_LIST_REQUEST,
+    });
+
+    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    /* MAKE GET REQUEST TO SET THE THE USERS LIST */
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}` /* PASSING IN USER TOKEN AND IF THE USER IS ADMIN WE'LL BE ABLE TO SEE LIST OF USERS */,
+      },
+    };
+
+    const { data } = await axios.get(`/api/users/`, config);
+
+    dispatch({
+      type: USER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+/* ACTION CREATOR USED TO DELETE A USER IN UserList SCREEN */
+export const deleteUser = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_DELETE_REQUEST,
+    });
+
+    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    /* MAKE DELETE REQUEST TO DELETE THE USER */
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}` /* PASSING IN USER TOKEN AND IF THE USER IS ADMIN WE'LL BE ABLE TO DELETE THE USER */,
+      },
+    };
+
+    const { data } = await axios.delete(`/api/users/delete/${id}`, config);
+
+    dispatch({
+      type: USER_DELETE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_DELETE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail

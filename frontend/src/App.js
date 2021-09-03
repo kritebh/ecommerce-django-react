@@ -14,6 +14,7 @@ import ShippingScreen from "./screens/ShippingScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
+import UserListScreen from "./screens/UserListScreen";
 
 /* REACT ROUTER */
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -43,6 +44,8 @@ function App() {
           <Route path="/product/:id" component={ProductScreen} />
 
           <Route path="/cart/:id?" component={CartScreen} />
+
+          <Route path="/admin/userlist" component={UserListScreen} />
         </main>
       </Container>
       <Footer />
