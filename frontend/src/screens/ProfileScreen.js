@@ -58,7 +58,8 @@ function ProfileScreen({ history }) {
       history.push("/login");
     } else {
       // WE DON'T HAVE THE USER INFO SO WE DISPATCH AN ACTION TO GET THE DATA
-      if (!user || !user.name || success) {
+      if (!user || !user.name || success || userInfo._id !== user._id) {
+        /* (userInfo._id !== user._id) BECAUSE DURING USER EDIT STATE CHANGES SO WE WANT TO FIRE DISPATCH AGAIN HERE IF THE DATA ISN'T SAME AS THE USER AS WE ARE LOGGED IN  */
         // RESETTING PROFILE BEFORE FETCHING DATA SO THAT WE ALWAYS HAVE UPDATED DATA
         dispatch({ type: USER_UPDATE_PROFILE_RESET });
 
