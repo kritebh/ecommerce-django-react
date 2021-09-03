@@ -14,7 +14,7 @@ import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 
 /* ACTION CREATORS */
-import { listUsers } from "../actions/userActions";
+import { listUsers, deleteUser } from "../actions/userActions";
 
 function UserListScreen({ history }) {
   const dispatch = useDispatch();
@@ -26,6 +26,10 @@ function UserListScreen({ history }) {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  // WE NEED THE SUCCESS VALUE SO WHEN WE SUCCESSFULLY DELETE THE USER WE WANT THE NEW DATA
+  const userDelete = useSelector((state) => state.userDelete);
+  const { success: successDelete } = userDelete;
+
   useEffect(() => {
     // WE DON'T WANT NON ADMINS TO ACCESS THIS PAGE SO REDIRECT IF SOMEBODY TRIES TO
 
@@ -34,11 +38,12 @@ function UserListScreen({ history }) {
     } else {
       history.push("/login");
     }
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, successDelete]);
 
   /* HANDLER */
   const deleteHandler = (id) => {
-    console.log(id);
+    if (window.confirm("Are you sure you want to delete this user ?"))
+      dispatch(deleteUser(id));
   };
 
   return (
