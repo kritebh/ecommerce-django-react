@@ -33,12 +33,13 @@ function UserListScreen({ history }) {
   useEffect(() => {
     // WE DON'T WANT NON ADMINS TO ACCESS THIS PAGE SO REDIRECT IF SOMEBODY TRIES TO
 
-    if (userInfo && userInfo.admin) {
+    if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers());
     } else {
       history.push("/login");
     }
-  }, [dispatch, history, userInfo, successDelete]);
+    // eslint-disable-next-line
+  }, [dispatch, history, successDelete]);
 
   /* HANDLER */
   const deleteHandler = (id) => {
