@@ -49,8 +49,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
 
-
-
 # SHOP API
 @api_view(['GET'])
 def getRoutes(request):
@@ -112,3 +110,35 @@ def getUsers(request):
     users = User.objects.all()
     serializer = UserSerializer(users,many = True)
     return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getUserById(request,pk):
+    users = User.objects.get(id=pk)
+    serializer = UserSerializer(users,many = False)
+    return Response(serializer.data)
+
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUser(request,pk):
+    user =User.objects.get(id=pk)
+   
+    data = request.data
+    user.first_name = data['name']
+    user.username = data['email']
+    user.email = data['email']
+    user.is_staff = data['isAdmin']
+    
+    user.save()
+    serializer = UserSerializer(user,many = False)
+    return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteUser(request,pk):
+    userForDeletion = User.objects.get(id=pk)
+    userForDeletion.delete()
+    return Response("User was deleted")
