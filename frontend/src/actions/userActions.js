@@ -24,6 +24,9 @@ import {
   USER_DELETE_REQUEST,
   USER_DELETE_FAIL,
   USER_DELETE_SUCCESS,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAIL,
 } from "../constants/userConstants";
 
 import { ORDER_LIST_MY_RESET } from "../constants/orderConstants";
@@ -287,6 +290,52 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.data.detail
+          : error.message,
+    });
+  }
+};
+
+/* ACTION CREATOR USED TO EDIT A USER IN UserUpdate SCREEN */
+export const updateUser = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_REQUEST,
+    });
+
+    // PULLING OUT THE CURRENT USER WE ARE LOGGED IN AS
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    /* MAKE PUT REQUEST TO EDIT THE USER */
+    const config = {
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${userInfo.token}` /* PASSING IN USER TOKEN AND IF THE USER IS ADMIN WE'LL BE ABLE TO EDIT THE USER */,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/users/update/${user._id}/`,
+      user,
+      config
+    );
+
+    dispatch({
+      type: USER_UPDATE_SUCCESS,
+    });
+
+    /* AFTER UPDATING WE WANT TO RELOAD THE USER DATA */
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_FAIL,
       payload:
         error.response && error.response.data.detail
           ? error.response.data.detail

@@ -61,7 +61,7 @@ function UserListScreen({ history }) {
             <tr>
               <th>ID</th>
               <th>NAME</th>
-              <th>ENAIL</th>
+              <th>EMAIL</th>
               <th>ADMIN</th>
               <th></th>
             </tr>
