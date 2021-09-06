@@ -164,7 +164,7 @@ export const listMyOrders = () => async (dispatch, getState) => {
       },
     };
 
-    /* MAKING API CALL TO GET THE DETAILS OF THE DETAILS MADE BY THE USER */
+    /* MAKING API CALL TO GET THE DETAILS OF THE ORDERS MADE BY THE USER */
     const { data } = await axios.get(`/api/orders/myorders/`, config);
 
     /* IF GET REQUEST SUCCESSFULL WE DISPATCH & SEND THE PAYLOAD TO OUR REDUCER */
