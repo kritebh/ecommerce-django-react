@@ -61,11 +61,11 @@ function ProductListScreen({ match, history }) {
           <h1>Products</h1>
         </Col>
 
-        <Co className="text-end">
+        <Col className="text-end">
           <Button className="my-3" onClick={createProcutHandler}>
             <i className="fas fa-plus"></i> Create Product
           </Button>
-        </Co>
+        </Col>
       </Row>
 
       {loadingDelete && <Loader />}
