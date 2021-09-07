@@ -38,8 +38,7 @@ function UserListScreen({ history }) {
     } else {
       history.push("/login");
     }
-    // eslint-disable-next-line
-  }, [dispatch, history, successDelete]);
+  }, [dispatch, history, successDelete, userInfo]);
 
   /* HANDLER */
   const deleteHandler = (id) => {
