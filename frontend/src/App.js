@@ -16,7 +16,9 @@ import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
 import UserListScreen from "./screens/UserListScreen";
 import UserEditScreen from "./screens/UserEditScreen";
-import ProductEditScreen from "./screens/ProductListScreen";
+import ProductListScreen from "./screens/ProductListScreen";
+import ProductEditScreen from "./screens/ProductEditScreen";
+import OrderListScreen from "./screens/OrderListScreen";
 
 /* REACT ROUTER */
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -51,7 +53,11 @@ function App() {
 
           <Route path="/admin/user/:id/edit" component={UserEditScreen} />
 
-          <Route path="/admin/productlist" component={ProductEditScreen} />
+          <Route path="/admin/product/:id/edit" component={ProductEditScreen} />
+
+          <Route path="/admin/productlist" component={ProductListScreen} />
+
+          <Route path="/admin/orderlist" component={OrderListScreen} />
         </main>
       </Container>
       <Footer />

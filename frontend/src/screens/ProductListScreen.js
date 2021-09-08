@@ -14,7 +14,14 @@ import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 
 /* ACTION CREATORS */
-import { listProducts, deleteProduct } from "../actions/productActions";
+import {
+  listProducts,
+  deleteProduct,
+  createProduct,
+} from "../actions/productActions";
+
+/* ACTION TYPES */
+import { PRODUCT_CREATE_RESET } from "../constants/productConstants";
 
 function ProductListScreen({ match, history }) {
   const dispatch = useDispatch();
@@ -30,20 +37,43 @@ function ProductListScreen({ match, history }) {
     error: errorDelete,
   } = productDelete;
 
+  const productCreate = useSelector((state) => state.productCreate);
+  const {
+    product: createdProduct,
+    success: successCreate,
+    loading: loadingCreate,
+    error: errorCreate,
+  } = productCreate;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
+    dispatch({ type: PRODUCT_CREATE_RESET });
+
     // WE DON'T WANT NON ADMINS TO ACCESS THIS PAGE SO REDIRECT IF SOMEBODY TRIES TO
 
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
+    if (!userInfo.isAdmin) {
       history.push("/login");
     }
 
+    // CHECK IF PRODUCT CREATED, IF YES THEN REDIRECT TO EDIT PAGE
+    if (successCreate) {
+      history.push(`/admin/product/${createdProduct._id}/edit`);
+    } else {
+      dispatch(listProducts());
+    }
+
+    // AFTER CREATING PRODUCT, LOAD IN PRODUCTS AGAIN, ADD successCreate IN DEPENDENCIES
     // AFTER DELETING PRODUCT, LOAD IN PRODUCTS AGAIN, ADD successDelete IN DEPENDENCIES
-  }, [dispatch, history, userInfo, successDelete]);
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    successDelete,
+    successCreate,
+    createdProduct,
+  ]);
 
   /* HANDLER */
   const deleteHandler = (id) => {
@@ -52,7 +82,9 @@ function ProductListScreen({ match, history }) {
     }
   };
 
-  const createProcutHandler = (product) => {};
+  const createProcutHandler = () => {
+    dispatch(createProduct());
+  };
 
   return (
     <div>
@@ -67,6 +99,9 @@ function ProductListScreen({ match, history }) {
           </Button>
         </Col>
       </Row>
+
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message variant="danger">{errorCreate}</Message>}
 
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant="danger">{errorDelete}</Message>}
