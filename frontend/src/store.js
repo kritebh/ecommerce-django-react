@@ -31,6 +31,7 @@ import {
   orderDetailsReducer,
   orderPayReducer,
   orderListMyReducer,
+  orderListReducer,
 } from "./reducers/orderReducers";
 
 /* COMBINED REDUCER */
@@ -55,6 +56,7 @@ const reducer = combineReducers({
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
   orderListMy: orderListMyReducer,
+  orderList: orderListReducer,
 });
 
 /* PULLING DATA OUT OF LOCAL STORAGE AND LOAD IT INTO INITIAL STATE */
