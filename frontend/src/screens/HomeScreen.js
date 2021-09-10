@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 /* ACTION CREATORS */
 import { listProducts } from "../actions/productActions";
 
-function HomeScreen() {
+function HomeScreen({ history }) {
   const dispatch = useDispatch();
 
   /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
@@ -24,9 +24,13 @@ function HomeScreen() {
 
   /* FIRING OFF THE ACTION CREATORS USING DISPATCH */
 
+  let keyword =
+    history.location
+      .search; /* IF USER SEARCHES FOR ANYTHING THEN THIS KEYWORD CHANGES AND USE EFFECT GETS TRIGGERED */
+
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword));
+  }, [dispatch, keyword]);
 
   return (
     <div>
