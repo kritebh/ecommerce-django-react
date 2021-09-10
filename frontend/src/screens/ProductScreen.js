@@ -74,7 +74,7 @@ function ProductScreen({ match, history }) {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(createProductReview(match.params.id, rating, comment));
+    dispatch(createProductReview(match.params.id, { rating, comment }));
   };
 
   return (
@@ -177,7 +177,7 @@ function ProductScreen({ match, history }) {
 
           <Row>
             <Col md={6}>
-              <h4>Reviews</h4>
+              <h4 className="mt-3">Reviews</h4>
 
               {product.reviews.length === 0 && (
                 <Message variant="info">No Reviews</Message>
@@ -241,6 +241,7 @@ function ProductScreen({ match, history }) {
                         disabled={loadingProductReview}
                         type="submit"
                         variant="primary"
+                        className="my-3"
                       >
                         Submit
                       </Button>
