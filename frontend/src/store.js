@@ -12,6 +12,8 @@ import {
   productDeleteReducer,
   productCreateReducer,
   productUpdateReducer,
+  productReviewCreateReducer,
+  productTopRatedReducer,
 } from "./reducers/productReducers";
 
 import { cartReducer } from "./reducers/cartReducers";
@@ -37,13 +39,15 @@ import {
 
 /* COMBINED REDUCER */
 const reducer = combineReducers({
+  cart: cartReducer,
+
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
   productCreate: productCreateReducer,
   productUpdate: productUpdateReducer,
-
-  cart: cartReducer,
+  productReviewCreate: productReviewCreateReducer,
+  productTopRated: productTopRatedReducer,
 
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,

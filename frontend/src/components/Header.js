@@ -12,6 +12,9 @@ import { useDispatch, useSelector } from "react-redux";
 /* ACTION CREATORS */
 import { logout } from "../actions/userActions";
 
+/* COMPONENTS */
+import SearchBox from "./SearchBox";
+
 function Header() {
   /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
   const userLogin = useSelector((state) => state.userLogin);
@@ -36,6 +39,8 @@ function Header() {
           <Navbar.Toggle aria-controls="navbarScroll" />
 
           <Navbar.Collapse id="navbarScroll">
+            <SearchBox />
+
             <Nav
               className="mr-auto my-2 my-lg-0"
               style={{ maxHeight: "100px" }}
