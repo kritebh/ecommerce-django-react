@@ -33,7 +33,7 @@ function Header() {
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>ProShop</Navbar.Brand>
+            <Navbar.Brand>Dukkan</Navbar.Brand>
           </LinkContainer>
 
           <Navbar.Toggle aria-controls="navbarScroll" />
@@ -42,7 +42,7 @@ function Header() {
             <SearchBox />
 
             <Nav
-              className="ml-auto my-2 my-lg-0"
+              className="ms-auto my-2 my-lg-0"
               style={{ maxHeight: "100px" }}
               navbarScroll
             >
