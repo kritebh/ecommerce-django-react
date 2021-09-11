@@ -15,6 +15,8 @@ import { logout } from "../actions/userActions";
 /* COMPONENTS */
 import SearchBox from "./SearchBox";
 
+import logo from "../logo.png";
+
 function Header() {
   /* PULLING A PART OF STATE FROM THE ACTUAL STATE IN THE REDUX STORE */
   const userLogin = useSelector((state) => state.userLogin);
@@ -33,7 +35,13 @@ function Header() {
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand>ProShop</Navbar.Brand>
+            <Navbar.Brand>
+              <img
+                src={logo}
+                alt="Otaku Shop"
+                style={{ height: "60px", width: "100%" }}
+              />
+            </Navbar.Brand>
           </LinkContainer>
 
           <Navbar.Toggle aria-controls="navbarScroll" />
