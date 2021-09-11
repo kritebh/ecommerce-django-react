@@ -1,9 +1,9 @@
 <h1 align=center>E-Commerce Website with Django + React & Redux</h1>
 <h2 align=center>Otaku House - Anime Merchandise and Cosplay Shop</h2>
 
-## [Live Link - Otaku House](https://otakuhouse.herokuapp.com/)
+## ✨ [Live Link - Otaku House](https://otakuhouse.herokuapp.com/)
 
-### How to Run 
+### How to Run 🏃‍♀️
 
 ```shell
 1 Clone This Repo
@@ -14,6 +14,8 @@
 6 python manage.py runserver
 
 ```
+
+### 🎯 Project Screenshots
 
 ![ss](./ss/ss1.png)
 ![ss](./ss/ss2.png)
