@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     #3rd party apps 
     'rest_framework',
     'corsheaders',
-    'django_cleanup.apps.CleanupConfig',
 ]
 
 # Simple JWT 
@@ -133,10 +132,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
 
 
 # Password validation
