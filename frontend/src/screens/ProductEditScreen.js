@@ -207,7 +207,7 @@ function ProductEditScreen({ match, history }) {
             <Form.Group controlId="description">
               <Form.Label>Description</Form.Label>
               <Form.Control
-                type="text"
+                as="textarea"
                 placeholder="Enter Description"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
