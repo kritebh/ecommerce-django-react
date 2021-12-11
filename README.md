@@ -29,7 +29,7 @@
 A completely customized eCommerce / shopping cart application using Django, REACT and REDUX with the following functionality:
 
 - Full featured shopping cart
-- Product reviews and ratings
+- Product reviews and Ratings
 - Top products carousel
 - Product pagination
 - Product search feature
