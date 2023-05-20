@@ -6,12 +6,11 @@
 ### How to Run 🏃‍♀️
 
 ```shell
-1 Clone This Repo
-2 cd backend
-3 python -m venv env
-4 .\env\Scripts\activate
-5 pip install -r requirements.txt 
-6 python manage.py runserver
+1 Clone This Repo by `git clone https://github.com/kritebh/ecommerce-django-react.git`
+2 python -m venv env
+3 .\env\Scripts\activate
+4 pip install -r requirements.txt 
+5 python manage.py runserver
 
 ```
 
